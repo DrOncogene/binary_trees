@@ -2,7 +2,7 @@
 
 /**
   * binary_tree_levelorder - level-order traversal
-  * @tree: root of the tree
+  * @tree: root  of the tree
   * @func: function to apply to each node
   */
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
