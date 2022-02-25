@@ -8,26 +8,19 @@
   */
 bst_t *bst_search(const bst_t *tree, int value)
 {
-	bst_t *found_l, *found_r;
+	bst_t *found;
 
 	if (!tree)
 		return (NULL);
 
+	found = NULL;
 	if (tree->n == value)
 		return ((bst_t *)tree);
 
-	found_l = found_r = NULL;
-	if (tree->left)
-		found_l = bst_search(tree->left, value);
-	if (tree->right)
-		found_r = bst_search(tree->right, value);
+	if (tree->n < value)
+		found = bst_search(tree->right, value);
+	if (tree->n > value)
+		found = bst_search(tree->left, value);
 
-	if (!found_l && !found_r)
-		return (NULL);
-	if (found_l)
-		return (found_l);
-	if (found_r)
-		return (found_r);
-
-	return (NULL);
+	return (found);
 }
