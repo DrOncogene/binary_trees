@@ -5,23 +5,30 @@
   * @tree: root node
   * Return: pointer to the new root node
   */
-binary_tree_t *binary_tree_rotate_right(binary_tree_t *tree)
+binary_tree_t *binary_tree_rotate_right(binary_tree_t *root)
 {
 	binary_tree_t *grandchild_r, *child_l;
 
-	if (!tree)
+	if (!root)
 		return (NULL);
 
-	child_l = tree->left;
+	child_l = root->left;
+	grandchild_r = child_l->right;
 	if (child_l)
 	{
-		child_l->parent = NULL;
-		grandchild_r = child_l->right;
-		child_l->right = tree;
-		tree->parent = child_l;
-		tree->left = grandchild_r;
+		child_l->right = root;
+		child_l->parent = root->parent;
+		if (root->parent)
+		{
+			if (root->parent->left == root)
+				root->parent->left = child_l;
+			else
+				root->parent->right = child_l;
+		}
+		root->parent = child_l;
+		root->left = grandchild_r;
 		if (grandchild_r)
-			grandchild_r->parent = tree;
+			grandchild_r->parent = root;
 	}
 
 	return (child_l);
